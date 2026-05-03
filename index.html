@@ -3,385 +3,284 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Card MMA | NFC Smart Card</title>
+<title>Card MMA</title>
 
 <style>
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:Tahoma, Arial, sans-serif;
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',Tahoma;
 }
 
 body{
-  background:#070707;
-  color:#fff;
-  overflow-x:hidden;
-  line-height:1.8;
+background:#0b0b0f;
+color:#fff;
+overflow-x:hidden;
 }
 
-a{text-decoration:none;color:inherit}
+/* ===== BACKGROUND GLOW ===== */
+body::before{
+content:"";
+position:fixed;
+width:600px;
+height:600px;
+background:radial-gradient(circle,#ff000055,transparent 60%);
+top:-100px;
+right:-100px;
+filter:blur(100px);
+z-index:-1;
+}
 
+/* ===== CONTAINER ===== */
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+/* ===== HERO ===== */
 .hero{
-  min-height:100vh;
-  padding:40px 20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(circle at 20% 20%,rgba(255,0,0,.35),transparent 30%),
-    radial-gradient(circle at 80% 80%,rgba(255,255,255,.12),transparent 25%),
-    linear-gradient(145deg,#000,#111,#1a0000);
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:40px 20px;
 }
 
-.hero-wrap{
-  max-width:1150px;
-  width:100%;
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:35px;
-  align-items:center;
+.logo{
+font-size:70px;
+font-weight:900;
+letter-spacing:4px;
 }
 
-.hero-text h1{
-  font-size:55px;
-  line-height:1.25;
+.logo span{
+color:#ff2e2e;
+text-shadow:0 0 20px #ff0000;
 }
 
-.hero-text h1 span{
-  color:#e50914;
+.hero h1{
+font-size:clamp(28px,5vw,50px);
+margin:15px 0;
 }
 
-.hero-text p{
-  color:#d4d4d4;
-  font-size:20px;
-  margin:20px 0;
+.hero p{
+color:#aaa;
+font-size:clamp(16px,2vw,20px);
+max-width:600px;
+margin:auto;
 }
 
+/* ===== BUTTON ===== */
 .btn{
-  display:inline-block;
-  padding:16px 36px;
-  border-radius:50px;
-  background:linear-gradient(135deg,#e50914,#7a0005);
-  color:white;
-  font-weight:bold;
-  box-shadow:0 18px 40px rgba(229,9,20,.35);
-  transition:.3s;
+display:inline-block;
+margin-top:25px;
+padding:14px 30px;
+border-radius:40px;
+background:linear-gradient(135deg,#ff0000,#800000);
+color:#fff;
+text-decoration:none;
+font-weight:bold;
+transition:.3s;
+box-shadow:0 10px 30px #ff000044;
 }
 
 .btn:hover{
-  transform:translateY(-5px);
-  background:white;
-  color:#111;
+transform:scale(1.05);
 }
 
-.mock-card{
-  height:360px;
-  border-radius:34px;
-  background:
-    linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.03)),
-    linear-gradient(145deg,#111,#050505);
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:0 35px 100px rgba(0,0,0,.7);
-  position:relative;
-  overflow:hidden;
-  transform:rotate(-6deg);
-}
-
-.mock-card::before{
-  content:"";
-  position:absolute;
-  inset:-80px;
-  background:radial-gradient(circle,rgba(229,9,20,.45),transparent 45%);
-  animation:move 5s infinite alternate ease-in-out;
-}
-
-@keyframes move{
-  from{transform:translate(-40px,-20px)}
-  to{transform:translate(70px,50px)}
-}
-
-.mock-content{
-  position:relative;
-  z-index:2;
-  height:100%;
-  padding:35px;
-  display:flex;
-  flex-direction:column;
-  justify-content:space-between;
-}
-
-.mma{
-  font-size:64px;
-  font-weight:900;
-  letter-spacing:5px;
-}
-
-.mma span{color:#e50914}
-
-.nfc{
-  align-self:flex-start;
-  padding:8px 18px;
-  border:1px solid rgba(255,255,255,.25);
-  border-radius:30px;
-  color:#ddd;
-}
-
+/* ===== SECTION ===== */
 section{
-  max-width:1180px;
-  margin:auto;
-  padding:80px 22px;
+padding:80px 20px;
+text-align:center;
 }
 
-.title{
-  text-align:center;
-  margin-bottom:45px;
+h2{
+font-size:clamp(24px,4vw,34px);
+margin-bottom:20px;
 }
 
-.title h2{
-  font-size:38px;
-  margin-bottom:12px;
-}
-
-.title p{
-  color:#bbb;
-  max-width:760px;
-  margin:auto;
-  font-size:18px;
-}
-
+/* ===== GLASS CARDS ===== */
 .grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:24px;
+display:grid;
+gap:20px;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
 }
 
-.box{
-  background:rgba(255,255,255,.055);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:26px;
-  padding:30px;
-  min-height:210px;
-  transition:.35s;
+.card{
+background:rgba(255,255,255,0.05);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:20px;
+padding:25px;
+backdrop-filter:blur(15px);
+transition:.3s;
 }
 
-.box:hover{
-  transform:translateY(-10px);
-  border-color:#e50914;
-  background:rgba(229,9,20,.12);
+.card:hover{
+transform:translateY(-8px);
+border-color:#ff0000;
 }
 
-.box h3{
-  font-size:23px;
-  margin-bottom:12px;
+/* ===== NFC CARD MOCK ===== */
+.mock{
+margin:40px auto;
+width:300px;
+height:180px;
+border-radius:20px;
+background:linear-gradient(135deg,#111,#000);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:40px;
+font-weight:bold;
+letter-spacing:3px;
+transform:rotate(-6deg);
+box-shadow:0 30px 80px rgba(0,0,0,0.8);
 }
 
-.box p{
-  color:#c9c9c9;
+.mock span{
+color:#ff0000;
 }
 
-.design-area{
-  border-radius:40px;
-  padding:50px;
-  background:
-    radial-gradient(circle at top right,rgba(229,9,20,.28),transparent 35%),
-    linear-gradient(135deg,#151515,#050505);
-  border:1px solid rgba(255,255,255,.12);
-  box-shadow:0 30px 90px rgba(0,0,0,.55);
+/* ===== DESIGN BOX ===== */
+.design{
+background:rgba(255,255,255,0.04);
+border-radius:25px;
+padding:40px;
+border:1px solid rgba(255,255,255,0.1);
 }
 
-.design-area h2{
-  font-size:36px;
-  margin-bottom:18px;
-}
-
-.design-area p{
-  color:#ddd;
-  font-size:18px;
-  margin-bottom:15px;
-}
-
-.steps{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:25px;
-}
-
+/* ===== STEPS ===== */
 .step{
-  position:relative;
-  padding:35px;
-  border-radius:28px;
-  background:#101010;
-  border:1px solid rgba(255,255,255,.1);
-}
-
-.step-number{
-  width:52px;
-  height:52px;
-  background:#e50914;
-  border-radius:50%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:900;
-  margin-bottom:18px;
-}
-
-.contact{
-  text-align:center;
-  border-radius:40px;
-  background:
-    linear-gradient(135deg,rgba(229,9,20,.18),rgba(255,255,255,.04)),
-    #090909;
-  border:1px solid rgba(255,255,255,.12);
+background:rgba(255,255,255,0.04);
+padding:25px;
+border-radius:20px;
 }
 
 footer{
-  padding:28px;
-  text-align:center;
-  color:#aaa;
-  background:#010101;
+text-align:center;
+padding:25px;
+color:#777;
 }
 
-@media(max-width:800px){
-  .hero-wrap{
-    grid-template-columns:1fr;
-  }
+/* ===== MOBILE ===== */
+@media(max-width:600px){
 
-  .hero-text{
-    text-align:center;
-  }
+.mock{
+width:90%;
+height:150px;
+transform:rotate(0);
+}
 
-  .hero-text h1{
-    font-size:36px;
-  }
+.btn{
+width:100%;
+}
 
-  .mock-card{
-    height:280px;
-    transform:rotate(0);
-  }
-
-  .mma{
-    font-size:48px;
-  }
 }
 </style>
 </head>
 
 <body>
 
-<header class="hero">
-  <div class="hero-wrap">
+<!-- HERO -->
+<div class="hero">
+<div class="container">
 
-    <div class="hero-text">
-      <h1>
-        بطاقة <span>NFC</span><br>
-        تفتح هويتك الرقمية بلمسة واحدة
-      </h1>
-      <p>
-        Card MMA حل احترافي لمشاركة بياناتك وروابطك مع العملاء بسرعة، بدون تطبيقات، وبدون بطاقات ورقية تقليدية.
-      </p>
-      <a href="https://wa.me/962780464559" class="btn" target="_blank">اطلب بطاقتك الآن</a>
-    </div>
+<div class="logo"><span>M</span>MA</div>
 
-    <div class="mock-card">
-      <div class="mock-content">
-        <div class="nfc">NFC SMART CARD</div>
-        <div class="mma"><span>M</span>MA</div>
-        <p>Digital Identity</p>
-      </div>
-    </div>
+<h1>بطاقة NFC تعكس هويتك الرقمية</h1>
 
-  </div>
-</header>
+<p>
+شارك معلوماتك وروابطك مع العملاء بطريقة حديثة وسريعة
+بمجرد لمسة واحدة.
+</p>
 
+<a href="https://wa.me/962780464559" class="btn">اطلب الآن</a>
+
+<div class="mock"><span>M</span>MA</div>
+
+</div>
+</div>
+
+<!-- FEATURES -->
 <section>
-  <div class="title">
-    <h2>لماذا Card MMA؟</h2>
-    <p>
-      لأنها تعطيك حضورًا احترافيًا أمام العميل، وتختصر بياناتك وروابطك داخل بطاقة واحدة قابلة للتحديث.
-    </p>
-  </div>
+<div class="container">
 
-  <div class="grid">
-    <div class="box">
-      <h3>لمسة واحدة</h3>
-      <p>تقريب الهاتف من البطاقة يفتح صفحتك الرقمية مباشرة.</p>
-    </div>
+<h2>ليش Card MMA؟</h2>
 
-    <div class="box">
-      <h3>حفظ جهة الاتصال</h3>
-      <p>يستطيع العميل حفظ اسمك، رقمك، وروابطك للرجوع إليها لاحقًا.</p>
-    </div>
+<div class="grid">
 
-    <div class="box">
-      <h3>مظهر احترافي</h3>
-      <p>بطاقة مناسبة لأصحاب المشاريع، المصممين، الطلاب، والمسوقين.</p>
-    </div>
+<div class="card">
+<h3>⚡ فورية</h3>
+<p>فتح الرابط خلال ثانية واحدة</p>
+</div>
 
-    <div class="box">
-      <h3>تحديث بدون طباعة</h3>
-      <p>عدّل بياناتك وروابطك في أي وقت بدون تغيير البطاقة.</p>
-    </div>
-  </div>
+<div class="card">
+<h3>📱 بدون تطبيق</h3>
+<p>تشتغل على كل الأجهزة مباشرة</p>
+</div>
+
+<div class="card">
+<h3>🎯 احترافية</h3>
+<p>تعطيك انطباع قوي أمام العميل</p>
+</div>
+
+<div class="card">
+<h3>🔄 تحديث دائم</h3>
+<p>تغير معلوماتك بدون تغيير البطاقة</p>
+</div>
+
+</div>
+
+</div>
 </section>
 
+<!-- DESIGN -->
 <section>
-  <div class="design-area">
-    <h2>تصميم حسب هويتك</h2>
-    <p>
-      يتم تنفيذ البطاقة حسب ذوق العميل: الألوان، الشعار، الاسم، وطريقة عرض البيانات.
-    </p>
-    <p>
-      يمكن أيضًا طباعة تصميم خاص على الوجه الثاني للبطاقة، مثل شعار مشروعك أو عبارة تعريفية.
-    </p>
-    <p>
-      التصاميم متاحة حسب الطلب، وللاطلاع أو الاستفسار تواصل معنا مباشرة.
-    </p>
-    <a href="https://wa.me/962780464559" class="btn" target="_blank">تواصل لمعرفة التصاميم</a>
-  </div>
+<div class="container design">
+
+<h2>تصميمك الخاص</h2>
+
+<p>اختر تصميمك أو اطلب تصميم VIP خاص فيك</p>
+<p>تقدر تضيف شعارك + ألوانك + اسمك</p>
+<p>طباعة الوجه الثاني متاحة</p>
+
+<a href="https://wa.me/962780464559" class="btn">تواصل معنا</a>
+
+</div>
 </section>
 
+<!-- STEPS -->
 <section>
-  <div class="title">
-    <h2>طريقة العمل</h2>
-    <p>تجربة بسيطة وسريعة تجعل العميل يتواصل معك خلال ثوانٍ.</p>
-  </div>
+<div class="container">
 
-  <div class="steps">
-    <div class="step">
-      <div class="step-number">1</div>
-      <h3>قرّب الهاتف</h3>
-      <p>العميل يقرّب هاتفه من بطاقة NFC.</p>
-    </div>
+<h2>كيف تعمل؟</h2>
 
-    <div class="step">
-      <div class="step-number">2</div>
-      <h3>تفتح الصفحة</h3>
-      <p>تظهر الصفحة الرقمية التي تحتوي بياناتك وروابطك.</p>
-    </div>
+<div class="grid">
 
-    <div class="step">
-      <div class="step-number">3</div>
-      <h3>تواصل فوري</h3>
-      <p>اتصال، واتساب، حفظ جهة الاتصال، أو فتح الروابط مباشرة.</p>
-    </div>
-  </div>
-</section>
+<div class="step">
+<h3>1</h3>
+<p>قرّب الهاتف</p>
+</div>
 
-<section class="contact">
-  <div class="title">
-    <h2>ابدأ الآن</h2>
-    <p>
-      اطلب بطاقة Card MMA الخاصة بك بتصميم يناسبك وواجهة رقمية احترافية.
-    </p>
-  </div>
+<div class="step">
+<h3>2</h3>
+<p>يفتح الموقع</p>
+</div>
 
-  <a href="https://wa.me/962780464559" class="btn" target="_blank">تواصل عبر واتساب</a>
+<div class="step">
+<h3>3</h3>
+<p>تواصل مباشر</p>
+</div>
+
+</div>
+
+</div>
 </section>
 
 <footer>
-  © Card MMA — NFC Digital Identity
+© Card MMA
 </footer>
 
 </body>
